@@ -4,6 +4,10 @@
     {
       "uri": "main",
       "pkg": "com.ethanco.app.main"
+    },
+    {
+      "uri": "music",
+      "pkg": "com.ethanco.app.music"
     }
   ]
 }
