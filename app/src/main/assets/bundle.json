@@ -6,6 +6,10 @@
       "pkg": "com.ethanco.lib.utils"
     },
     {
+      "uri": "lib.style",
+      "pkg": "com.ethanco.lib.style"
+    },
+    {
       "uri": "main",
       "pkg": "com.ethanco.app.main"
     },

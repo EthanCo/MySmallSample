@@ -1676,3 +1676,8 @@ int[] styleable ViewStubCompat
 int styleable ViewStubCompat_android_id
 int styleable ViewStubCompat_android_inflatedId
 int styleable ViewStubCompat_android_layout
+int style myAppTheme
+int color myColorAccent
+int color myColorPrimary
+int color myColorPrimaryDark
+int style HostTheme
