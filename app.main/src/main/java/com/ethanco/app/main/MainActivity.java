@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String bundlePackageName = etUpgrade.getText().toString();
                 if (TextUtils.isEmpty(bundlePackageName)) {
                     MyUtil.show(this, "请输入Bundle包名");
-                    //Toast.makeText(this, "请输入Bundle包名", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "onClick music patch path: " + bundle.getPatchFile().getPath());
                 bundle.upgrade();
                 MyUtil.show(this, "success");
-                //Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.btn_go_music_activity:
