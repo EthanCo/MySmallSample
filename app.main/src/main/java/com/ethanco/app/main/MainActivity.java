@@ -1,18 +1,19 @@
 package com.ethanco.app.main;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.ethanco.lib.utils.MyUtil;
 
 import net.wequick.small.Small;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "Z-main";
     private EditText etUpgrade;
@@ -38,14 +39,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_upgrade:
                 String bundlePackageName = etUpgrade.getText().toString();
                 if (TextUtils.isEmpty(bundlePackageName)) {
-                    Toast.makeText(this, "请输入Bundle", Toast.LENGTH_SHORT).show();
+                    MyUtil.show(this, "请输入Bundle包名");
+                    //Toast.makeText(this, "请输入Bundle包名", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 net.wequick.small.Bundle bundle = Small.getBundle(bundlePackageName);
                 Log.i(TAG, "onClick music patch path: " + bundle.getPatchFile().getPath());
                 bundle.upgrade();
-                Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+                MyUtil.show(this, "success");
+                //Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.btn_go_music_activity:

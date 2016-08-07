@@ -2,6 +2,10 @@
   "version": "1.0.0",
   "bundles": [
     {
+      "uri": "lib.utils",
+      "pkg": "com.ethanco.lib.utils"
+    },
+    {
       "uri": "main",
       "pkg": "com.ethanco.app.main"
     },
