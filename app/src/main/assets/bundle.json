@@ -6,6 +6,10 @@
       "pkg": "com.ethanco.lib.utils"
     },
     {
+      "uri": "lib.network",
+      "pkg": "com.ethanco.lib.network"
+    },
+    {
       "uri": "lib.style",
       "pkg": "com.ethanco.lib.style"
     },
