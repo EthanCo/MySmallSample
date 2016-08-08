@@ -32,4 +32,6 @@ dependencies {
     //rxjava
     compile 'io.reactivex:rxjava:1.1.5'
     compile 'io.reactivex:rxandroid:1.2.0'
+    //FileDownloader 文件下载 基于Okhttp
+    compile 'com.liulishuo.filedownloader:library:0.3.4'
 }

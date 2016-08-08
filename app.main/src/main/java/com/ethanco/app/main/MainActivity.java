@@ -1,12 +1,13 @@
 package com.ethanco.app.main;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.ethanco.lib.frame.view.BaseActivity;
+import com.ethanco.lib.frame.viewmodel.BaseViewModel;
 import com.ethanco.lib.network.AppCommandType;
 import com.ethanco.lib.network.NetFacade;
 import com.ethanco.lib.network.bean.request.CmdRequest;
@@ -25,7 +26,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "Z-main";
     private EditText etUpgrade;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initToolbar("Main", false);
 
         net.wequick.small.Bundle bundle = Small.getBundle("com.ethanco.app.main");
         File file = bundle.getPatchFile();
@@ -44,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_upgrade).setOnClickListener(this);
         findViewById(R.id.btn_go_music_activity).setOnClickListener(this);
         findViewById(R.id.btn_network).setOnClickListener(this);
+    }
+
+    @Override
+    protected BaseViewModel createViewModel() {
+        return null;
     }
 
     @Override
