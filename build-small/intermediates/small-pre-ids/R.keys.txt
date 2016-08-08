@@ -841,7 +841,6 @@ int style AlertDialog_AppCompat_Light
 int style Animation_AppCompat_Dialog
 int style Animation_AppCompat_DropDownUp
 int style Animation_Design_BottomSheetDialog
-int style AppTheme
 int style Base_AlertDialog_AppCompat
 int style Base_AlertDialog_AppCompat_Light
 int style Base_Animation_AppCompat_Dialog
@@ -996,6 +995,7 @@ int style Base_Widget_Design_AppBarLayout
 int style Base_Widget_Design_TabLayout
 int style FullscreenActionBarStyle
 int style FullscreenTheme
+int style HostTheme
 int style Platform_AppCompat
 int style Platform_AppCompat_Light
 int style Platform_ThemeOverlay_AppCompat
@@ -1680,6 +1680,5 @@ int style myAppTheme
 int color myColorAccent
 int color myColorPrimary
 int color myColorPrimaryDark
-int style HostTheme
 int dimen activity_horizontal_margin
 int dimen activity_vertical_margin
