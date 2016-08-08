@@ -7,9 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ethanco.lib.network.APIService;
 import com.ethanco.lib.network.AppCommandType;
-import com.ethanco.lib.network.RetrofitFactory;
+import com.ethanco.lib.network.NetFacade;
 import com.ethanco.lib.network.bean.request.CmdRequest;
 import com.ethanco.lib.network.bean.response.TimeResponse;
 import com.ethanco.lib.utils.L;
@@ -19,8 +18,8 @@ import com.ethanco.lib.utils.dialog.LoadingDialog;
 import net.wequick.small.Small;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
-import retrofit2.Retrofit;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -44,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.btn_upgrade).setOnClickListener(this);
         findViewById(R.id.btn_go_music_activity).setOnClickListener(this);
+        findViewById(R.id.btn_network).setOnClickListener(this);
     }
 
     @Override
@@ -52,34 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_upgrade:
                 String bundlePackageName = etUpgrade.getText().toString();
                 if (TextUtils.isEmpty(bundlePackageName)) {
-                    T.show("请输入Bundle包名~");
-                    L.w("请输入Bundle包名");
-                    LoadingDialog.show(this);
-
-                    Retrofit retrofit = RetrofitFactory.getInstance().createRetrofit("http://121.40.227.8:8088/");
-                    CmdRequest cmd = new CmdRequest();
-                    cmd.setCmd(AppCommandType.GET_SERVICE_TIME);
-                    retrofit.create(APIService.class).getServerTime(cmd)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeOn(Schedulers.io())
-                            .subscribe(new Action1<TimeResponse>() {
-                                @Override
-                                public void call(TimeResponse timeResponse) {
-                                    String time = timeResponse.getData().getTime();
-                                    L.i("time:" + time);
-                                    T.show("time:" + time);
-                                }
-                            }, new Action1<Throwable>() {
-                                @Override
-                                public void call(Throwable throwable) {
-                                    L.i("throwable:" + throwable.getMessage());
-                                }
-                            }, new Action0() {
-                                @Override
-                                public void call() {
-                                    L.i("complete");
-                                }
-                            });
+                    T.show("请输入Bundle包名");
                     return;
                 }
 
@@ -91,6 +64,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_go_music_activity:
                 Small.openUri("music", MainActivity.this);
+                break;
+            case R.id.btn_network:
+                LoadingDialog.show(this);
+                CmdRequest cmd = new CmdRequest();
+                cmd.setCmd(AppCommandType.GET_SERVICE_TIME);
+                NetFacade.getInstance()
+                        .provideDefualtService()
+                        .getServerTime(cmd).delay(2, TimeUnit.SECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(new Action1<TimeResponse>() {
+                            @Override
+                            public void call(TimeResponse timeResponse) {
+                                String time = timeResponse.getData().getTime();
+                                L.i("time:" + time);
+                                T.show("time:" + time);
+                            }
+                        }, new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                L.i("throwable:" + throwable.getMessage());
+                            }
+                        }, new Action0() {
+                            @Override
+                            public void call() {
+                                L.i("complete");
+                                LoadingDialog.dismiss();
+                            }
+                        });
                 break;
             default:
         }

@@ -37,4 +37,11 @@
         android:layout_marginTop="10dp"
         android:text="go music Activity" />
 
+    <Button
+        android:id="@+id/btn_network"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="访问网络" />
+
 </LinearLayout>
