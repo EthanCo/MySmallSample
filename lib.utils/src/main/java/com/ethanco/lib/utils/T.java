@@ -5,16 +5,33 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
- * Created by EthanCo on 2016/8/7.
+ * Toast
  */
 public class T {
-    private static Application context;
 
-    public static void init(Application _context) {
-        context = _context;
+    private T() {
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
-    public static void show(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    private static Application context;
+
+    public static void init(Application application) {
+        context = application;
+    }
+
+    public static void show(int resId) {
+        show(context, resId, Toast.LENGTH_SHORT);
+    }
+
+    public static void show(CharSequence text) {
+        show(context, text, Toast.LENGTH_SHORT);
+    }
+
+    public static void show(Context context, int resId, int duration) {
+        Toast.makeText(context, resId, duration).show();
+    }
+
+    public static void show(Context context, CharSequence text, int duration) {
+        Toast.makeText(context, text, duration).show();
     }
 }

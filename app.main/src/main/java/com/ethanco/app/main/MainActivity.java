@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.ethanco.lib.utils.L;
 import com.ethanco.lib.utils.T;
+import com.ethanco.lib.utils.dialog.LoadingDialog;
 
 import net.wequick.small.Small;
 
@@ -39,14 +41,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_upgrade:
                 String bundlePackageName = etUpgrade.getText().toString();
                 if (TextUtils.isEmpty(bundlePackageName)) {
-                    T.show(this, "请输入Bundle包名~");
+                    T.show("请输入Bundle包名~" + L.isDebug);
+                    L.w("请输入Bundle包名");
+                    LoadingDialog.show(this);
                     return;
                 }
 
                 net.wequick.small.Bundle bundle = Small.getBundle(bundlePackageName);
                 Log.i(TAG, "onClick music patch path: " + bundle.getPatchFile().getPath());
                 bundle.upgrade();
-                T.show(this, "success");
+                T.show("success");
 
                 break;
             case R.id.btn_go_music_activity:

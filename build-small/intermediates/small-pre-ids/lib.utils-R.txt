@@ -1,0 +1,3 @@
+int string dialog_loading 0x73020000
+int string dialog_please_wait 0x73020001
+int string dialog_please_wait_title 0x73020002

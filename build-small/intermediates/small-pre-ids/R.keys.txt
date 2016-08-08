@@ -1682,3 +1682,6 @@ int color myColorPrimary
 int color myColorPrimaryDark
 int dimen activity_horizontal_margin
 int dimen activity_vertical_margin
+int string dialog_loading
+int string dialog_please_wait
+int string dialog_please_wait_title
