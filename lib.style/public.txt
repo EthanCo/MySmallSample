@@ -2,3 +2,5 @@ int style myAppTheme 0x79020000
 int color myColorAccent 0x79030000
 int color myColorPrimary 0x79030001
 int color myColorPrimaryDark 0x79030002
+int dimen activity_horizontal_margin 0x79040000
+int dimen activity_vertical_margin 0x79040001

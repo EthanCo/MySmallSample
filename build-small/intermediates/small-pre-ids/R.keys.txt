@@ -1681,3 +1681,5 @@ int color myColorAccent
 int color myColorPrimary
 int color myColorPrimaryDark
 int style HostTheme
+int dimen activity_horizontal_margin
+int dimen activity_vertical_margin
