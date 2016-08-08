@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">App.main</string>
+    <string name="please_intput_bundle_package">请输入Bundle包名</string>
 </resources>

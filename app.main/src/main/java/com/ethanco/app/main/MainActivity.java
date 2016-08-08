@@ -2,7 +2,6 @@ package com.ethanco.app.main;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -18,7 +17,6 @@ import com.ethanco.lib.utils.dialog.LoadingDialog;
 
 import net.wequick.small.Small;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,7 +26,6 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = "Z-main";
     private EditText etUpgrade;
 
     @Override
@@ -38,9 +35,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         initToolbar("Main", false);
 
-        net.wequick.small.Bundle bundle = Small.getBundle("com.ethanco.app.main");
+        /*net.wequick.small.Bundle bundle = Small.getBundle("com.ethanco.app.main");
         File file = bundle.getPatchFile();
-        Log.i(TAG, "onCreate patch path: " + file.getPath());
+        L.i("onCreate patch path: " + file.getPath());*/
 
         etUpgrade = (EditText) findViewById(R.id.et_upgrade);
 
@@ -65,7 +62,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
 
                 net.wequick.small.Bundle bundle = Small.getBundle(bundlePackageName);
-                Log.i(TAG, "onClick music patch path: " + bundle.getPatchFile().getPath());
+                L.i("onClick music patch path: " + bundle.getPatchFile().getPath());
                 bundle.upgrade();
                 T.show("success");
 

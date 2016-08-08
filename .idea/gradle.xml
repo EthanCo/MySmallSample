@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app.main" />
             <option value="$PROJECT_DIR$/app.music" />
             <option value="$PROJECT_DIR$/lib.frame" />
+            <option value="$PROJECT_DIR$/lib.imageproxy" />
             <option value="$PROJECT_DIR$/lib.network" />
             <option value="$PROJECT_DIR$/lib.style" />
             <option value="$PROJECT_DIR$/lib.utils" />
@@ -24,6 +25,7 @@
             <option value="$PROJECT_DIR$/app.main" />
             <option value="$PROJECT_DIR$/app.music" />
             <option value="$PROJECT_DIR$/lib.frame" />
+            <option value="$PROJECT_DIR$/lib.imageproxy" />
             <option value="$PROJECT_DIR$/lib.network" />
             <option value="$PROJECT_DIR$/lib.style" />
             <option value="$PROJECT_DIR$/lib.utils" />

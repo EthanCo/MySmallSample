@@ -21,7 +21,8 @@
         <EditText
             android:id="@+id/et_upgrade"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/please_intput_bundle_package" />
 
         <Button
             android:id="@+id/btn_upgrade"

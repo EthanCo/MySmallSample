@@ -3,6 +3,10 @@
     <color name="myColorPrimary">#FF5722</color>
     <color name="myColorPrimaryDark">#E64A19</color>
     <color name="myColorAccent">#FF9800</color>
+    <color name="myColorPrimaryText">#212121</color>
+    <color name="myColorSecondaryText">#757575</color>
+    <color name="myColorIcons">#FFFFFF</color>
+    <color name="myColorDivider">#BDBDBD</color>
 
     <color name="white">#FFFFFF</color>
     <color name="white_smoke">#F5F5F5</color>

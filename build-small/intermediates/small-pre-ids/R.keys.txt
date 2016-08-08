@@ -1710,3 +1710,10 @@ int string dialog_please_wait_title
 int style AppThemeDefaultV19
 int style AppThemeDefaultV21
 int style AppThemeBase
+int dimen image_large
+int color myColorDivider
+int color myColorIcons
+int color myColorPrimaryText
+int color myColorSecondaryText
+int dimen actionbar_height
+int style toolbar_theme

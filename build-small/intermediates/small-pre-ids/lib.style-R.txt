@@ -25,3 +25,9 @@ int dimen textSize_tip_V12 0x7904000c
 int style AppThemeDefaultV19 0x79020001
 int style AppThemeDefaultV21 0x79020002
 int style AppThemeBase 0x79020003
+int dimen image_large 0x7904000d
+int color myColorDivider 0x7903000a
+int color myColorIcons 0x7903000b
+int color myColorPrimaryText 0x7903000c
+int color myColorSecondaryText 0x7903000d
+int dimen actionbar_height 0x7904000e

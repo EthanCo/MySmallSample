@@ -12,6 +12,10 @@ int color white_smoke 0x79030006
 int color window_background 0x79030007
 int color window_background_dark 0x79030008
 int color window_background_middle 0x79030009
+int color myColorDivider 0x7903000a
+int color myColorIcons 0x7903000b
+int color myColorPrimaryText 0x7903000c
+int color myColorSecondaryText 0x7903000d
 int dimen activity_horizontal_margin 0x79040000
 int dimen activity_vertical_margin 0x79040001
 int dimen textSize_appBar_V20 0x79040002
@@ -25,3 +29,5 @@ int dimen textSize_mainHead_V24 0x79040009
 int dimen textSize_subHead_V16 0x7904000a
 int dimen textSize_subHead_V18 0x7904000b
 int dimen textSize_tip_V12 0x7904000c
+int dimen image_large 0x7904000d
+int dimen actionbar_height 0x7904000e
