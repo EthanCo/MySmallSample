@@ -1,5 +1,6 @@
 package com.ethanco.app.music;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import com.ethanco.lib.frame.viewmodel.BaseViewModel;
 import com.ethanco.lib.imageproxy.abs.ImageProxy;
 import com.ethanco.lib.imageproxy.proxy.GlideProxy;
 import com.ethanco.lib.utils.T;
+import com.ethanco.service.MusicService;
 
 public class MusicActivity extends BaseActivity implements View.OnClickListener {
 
@@ -25,6 +27,8 @@ public class MusicActivity extends BaseActivity implements View.OnClickListener 
 
         imgCover = (ImageView) findViewById(R.id.img_cover);
         findViewById(R.id.btn_show).setOnClickListener(this);
+        findViewById(R.id.btn_start_music_service).setOnClickListener(this);
+        findViewById(R.id.btn_stop_music_service).setOnClickListener(this);
 
         ImageProxy imageProxy = GlideProxy.getInstace();
         imageProxy.with(this).load(imgUrl).into(imgCover);
@@ -40,6 +44,12 @@ public class MusicActivity extends BaseActivity implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.btn_show:
                 T.show("Music");
+                break;
+            case R.id.btn_start_music_service:
+                startService(new Intent(this, MusicService.class));
+                break;
+            case R.id.btn_stop_music_service:
+                stopService(new Intent(this, MusicService.class));
                 break;
             default:
         }

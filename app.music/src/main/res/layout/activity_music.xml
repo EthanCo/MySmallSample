@@ -42,6 +42,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="Show" />
+
+        <Button
+            android:id="@+id/btn_stop_music_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_show"
+            android:text="Stop Service" />
+
+        <Button
+            android:id="@+id/btn_start_music_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_stop_music_service"
+            android:text="Start Service" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

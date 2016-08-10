@@ -1676,3 +1676,7 @@ int[] styleable ViewStubCompat { 0x010100d0, 0x010100f2, 0x010100f3 }
 int styleable ViewStubCompat_android_id 0
 int styleable ViewStubCompat_android_inflatedId 2
 int styleable ViewStubCompat_android_layout 1
+int id dataBinding 0x7f0c0004
+int id onAttachStateChangeListener 0x7f0c0007
+int id onDateChanged 0x7f0c0008
+int id textWatcher 0x7f0c000c

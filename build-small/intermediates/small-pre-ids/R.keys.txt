@@ -1717,3 +1717,7 @@ int color myColorPrimaryText
 int color myColorSecondaryText
 int dimen actionbar_height
 int style toolbar_theme
+int id dataBinding
+int id onAttachStateChangeListener
+int id onDateChanged
+int id textWatcher
