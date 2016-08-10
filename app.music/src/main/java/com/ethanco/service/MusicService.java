@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.ethanco.lib.utils.L;
-import com.ethanco.lib.utils.T;
+import com.lib.utils.L;
+import com.lib.utils.T;
 
 /**
  * Created by EthanCo on 2016/8/10.

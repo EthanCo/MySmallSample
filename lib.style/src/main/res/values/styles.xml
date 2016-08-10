@@ -1,18 +1,18 @@
 <resources>
 
-    <style name="myAppTheme" parent="AppThemeBase" />
+    <style name="AppThemeDefault" parent="AppThemeBase" />
 
     <!-- Base application theme. -->
     <style name="AppThemeBase" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/myColorPrimary</item>
-        <item name="colorPrimaryDark">@color/myColorPrimaryDark</item>
-        <item name="colorAccent">@color/myColorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorLink">#0b9a27</item>
-        <item name="android:textColorPrimary">@color/myColorPrimaryText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="actionMenuTextColor">@color/white</item>
-        <item name="editTextColor">@color/myColorSecondaryText</item>
+        <item name="editTextColor">@color/colorSecondaryText</item>
         <item name="actionBarSize">@dimen/actionbar_height</item>
     </style>
 

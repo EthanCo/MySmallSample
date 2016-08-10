@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="myAppTheme" parent="AppThemeDefaultV21" />
+    <style name="AppThemeDefault" parent="AppThemeDefaultV21" />
 
     <style name="AppThemeDefaultV21" parent="AppThemeDefaultV19">
         <item name="android:windowNoTitle">true</item>

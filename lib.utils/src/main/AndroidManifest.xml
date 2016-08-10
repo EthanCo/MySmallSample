@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ethanco.lib.utils">
+    package="com.lib.utils">
 
     <application
         android:name=".UtilsApplication"

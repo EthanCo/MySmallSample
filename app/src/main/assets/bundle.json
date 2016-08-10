@@ -3,23 +3,23 @@
   "bundles": [
     {
       "uri": "lib.utils",
-      "pkg": "com.ethanco.lib.utils"
+      "pkg": "com.lib.utils"
     },
     {
       "uri": "lib.network",
-      "pkg": "com.ethanco.lib.network"
+      "pkg": "com.lib.network"
     },
     {
       "uri": "lib.style",
-      "pkg": "com.ethanco.lib.style"
+      "pkg": "com.lib.style"
     },
     {
       "uri": "lib.imageproxy",
-      "pkg": "com.ethanco.lib.imageproxy"
+      "pkg": "com.lib.imageproxy"
     },
     {
       "uri": "lib.frame",
-      "pkg": "com.ethanco.lib.frame"
+      "pkg": "com.lib.frame"
     },
     {
       "uri": "main",

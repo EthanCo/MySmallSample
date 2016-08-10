@@ -5,15 +5,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ethanco.lib.frame.view.BaseActivity;
-import com.ethanco.lib.frame.viewmodel.BaseViewModel;
-import com.ethanco.lib.network.AppCommandType;
-import com.ethanco.lib.network.NetFacade;
-import com.ethanco.lib.network.bean.request.CmdRequest;
-import com.ethanco.lib.network.bean.response.TimeResponse;
-import com.ethanco.lib.utils.L;
-import com.ethanco.lib.utils.T;
-import com.ethanco.lib.utils.dialog.LoadingDialog;
+import com.lib.frame.view.BaseActivity;
+import com.lib.frame.viewmodel.BaseViewModel;
+import com.lib.network.AppCommandType;
+import com.lib.network.NetFacade;
+import com.lib.network.bean.request.CmdRequest;
+import com.lib.network.bean.response.TimeResponse;
+import com.lib.utils.L;
+import com.lib.utils.T;
+import com.lib.utils.dialog.LoadingDialog;
 
 import net.wequick.small.Small;
 

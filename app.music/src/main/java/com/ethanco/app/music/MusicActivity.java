@@ -7,12 +7,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ethanco.lib.frame.view.BaseActivity;
-import com.ethanco.lib.frame.viewmodel.BaseViewModel;
-import com.ethanco.lib.imageproxy.abs.ImageProxy;
-import com.ethanco.lib.imageproxy.proxy.GlideProxy;
-import com.ethanco.lib.utils.T;
 import com.ethanco.service.MusicService;
+import com.lib.frame.view.BaseActivity;
+import com.lib.frame.viewmodel.BaseViewModel;
+import com.lib.imageproxy.abs.ImageProxy;
+import com.lib.imageproxy.proxy.GlideProxy;
+import com.lib.utils.T;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

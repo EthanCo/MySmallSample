@@ -28,4 +28,5 @@ dependencies {
     compile project(':lib.utils')
     compile project(':lib.imageproxy')
     compile project(':lib.frame')
+    compile project(':lib.style')
 }

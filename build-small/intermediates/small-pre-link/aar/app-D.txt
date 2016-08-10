@@ -5,6 +5,3 @@ com.android.support:support-vector-drawable:24.1.1
 com.android.support:appcompat-v7:24.1.1
 com.android.support:recyclerview-v7:24.1.1
 com.android.support:design:24.1.1
-com.android.databinding:library:1.1
-com.android.databinding:adapters:1.1
-net.wequick.small:small:1.1.0-beta4
