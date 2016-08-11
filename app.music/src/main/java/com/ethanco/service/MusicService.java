@@ -21,14 +21,14 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        T.show("MusicService onCreate");
+        T.show(getApplication(),"MusicService onCreate");
         L.i("MusicService onCreate");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        T.show("MusicService onDestroy");
+        T.show(getApplication(),"MusicService onDestroy");
         L.i("MusicService destroy");
     }
 }

@@ -58,14 +58,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_upgrade:
                 String bundlePackageName = etUpgrade.getText().toString();
                 if (TextUtils.isEmpty(bundlePackageName)) {
-                    T.show("请输入Bundle包名");
+                    T.show(this, "请输入Bundle包名");
                     return;
                 }
 
                 net.wequick.small.Bundle bundle = Small.getBundle(bundlePackageName);
                 L.i("onClick music patch path: " + bundle.getPatchFile().getPath());
                 bundle.upgrade();
-                T.show("success");
+                T.show(this, "success");
 
                 break;
             case R.id.btn_go_music_activity:
@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             public void call(TimeResponse timeResponse) {
                                 String time = timeResponse.getData().getTime();
                                 L.i("time:" + time);
-                                T.show("time:" + time);
+                                T.show(getApplication(), "time:" + time);
                             }
                         }, new Action1<Throwable>() {
                             @Override

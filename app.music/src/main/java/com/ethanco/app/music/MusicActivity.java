@@ -57,7 +57,7 @@ public class MusicActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_show:
-                T.show("Music");
+                T.show(this,"Music");
                 break;
             case R.id.btn_start_music_service:
                 startService(new Intent(this, MusicService.class));

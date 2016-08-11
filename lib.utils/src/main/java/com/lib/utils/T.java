@@ -1,6 +1,5 @@
 package com.lib.utils;
 
-import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -13,17 +12,11 @@ public class T {
         throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
-    private static Application context;
-
-    public static void init(Application application) {
-        context = application;
-    }
-
-    public static void show(int resId) {
+    public static void show(Context context, int resId) {
         show(context, resId, Toast.LENGTH_SHORT);
     }
 
-    public static void show(CharSequence text) {
+    public static void show(Context context, CharSequence text) {
         show(context, text, Toast.LENGTH_SHORT);
     }
 
