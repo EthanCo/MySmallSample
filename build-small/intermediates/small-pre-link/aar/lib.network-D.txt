@@ -1,7 +1,7 @@
 com.squareup.retrofit2:retrofit-converters:2.1.0
 com.liulishuo.filedownloader:library:0.3.4
-com.android.support:support-vector-drawable:24.1.1
-com.android.support:appcompat-v7:24.1.1
-com.android.support:animated-vector-drawable:24.1.1
+com.android.support:animated-vector-drawable:23.2.1
+com.android.support:support-v4:23.2.1
+com.android.support:support-vector-drawable:23.2.1
 io.reactivex:rxandroid:1.2.0
-com.android.support:support-v4:24.1.1
+com.android.support:appcompat-v7:23.2.1

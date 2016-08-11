@@ -6,8 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app.main/app.main.iml" filepath="$PROJECT_DIR$/app.main/app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/app.music/app.music.iml" filepath="$PROJECT_DIR$/app.music/app.music.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app.sence/app.sence.iml" filepath="$PROJECT_DIR$/app.sence/app.sence.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app.smart/app.smart.iml" filepath="$PROJECT_DIR$/app.smart/app.smart.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.frame/lib.frame.iml" filepath="$PROJECT_DIR$/lib.frame/lib.frame.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.imageproxy/lib.imageproxy.iml" filepath="$PROJECT_DIR$/lib.imageproxy/lib.imageproxy.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.network/lib.network.iml" filepath="$PROJECT_DIR$/lib.network/lib.network.iml" />

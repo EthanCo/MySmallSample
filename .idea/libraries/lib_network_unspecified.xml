@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="lib.network-unspecified">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build-small/intermediates/small-pre-jar/libs/lib.network-unspecified.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
