@@ -1,1 +1,1 @@
-include ':app', ':app.main', ':app.music', ':lib.utils', ':lib.network', ':lib.imageproxy', ':lib.style', 'lib.frame'
+include ':app', ':app.main', ':app.music', ':lib.utils', ':lib.network', ':lib.imageproxy', ':lib.style', ':lib.rxjava', 'lib.frame'

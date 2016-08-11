@@ -1,6 +1,7 @@
 package com.lib.network;
 
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 
 import com.lib.network.observer.Observer;
 import com.lib.network.observer.Type;
@@ -21,10 +22,6 @@ import okhttp3.ResponseBody;
 import okhttp3.internal.http.HttpHeaders;
 import okio.Buffer;
 import okio.BufferedSource;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * @Description response Body 拦截器
@@ -133,22 +130,30 @@ public class BodyInterceptor implements Interceptor {
         return type;
     }
 
+    public static final int TYPE_NOTIFY_OBSERVER = 8945;
+
+    private static Handler mH = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == TYPE_NOTIFY_OBSERVER) {
+                Observer observer = (Observer) msg.obj;
+                Type type = Type.valueOf(msg.arg1);
+                observer.notify(type);
+            }
+        }
+    };
+
     private void notifyObservers(final Type type) {
         if (null != type) {
-            Observable.from(observerList)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(new Action1<Observer>() {
-                        @Override
-                        public void call(Observer observer) {
-                            observer.notify(type);
-                        }
-                    }, new Action1<Throwable>() {
-                        @Override
-                        public void call(Throwable throwable) {
-                            Log.e(TAG, throwable.getLocalizedMessage());
-                        }
-                    });
+            new Thread() {
+                @Override
+                public void run() {
+                    for (Observer observer : observerList) {
+                        Message msg = mH.obtainMessage(TYPE_NOTIFY_OBSERVER, type.getValue(), 0, observer);
+                        mH.sendMessage(msg);
+                    }
+                }
+            }.start();
         }
     }
 }

@@ -29,9 +29,6 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    //rxjava
-    compile 'io.reactivex:rxjava:1.1.5'
-    compile 'io.reactivex:rxandroid:1.2.0'
     //FileDownloader 文件下载 基于Okhttp
     compile 'com.liulishuo.filedownloader:library:0.3.4'
 }
