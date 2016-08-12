@@ -1,7 +1,7 @@
 package com.lib.network.sbscribe;
 
 import com.lib.network.AppCommandType;
-import com.lib.network.bean.response.BaseBeanResponse;
+import com.lib.network.bean.response.BaseResponse;
 import com.lib.network.bean.response.BaseDataBean;
 
 import rx.Observable;
@@ -15,14 +15,14 @@ import rx.schedulers.Schedulers;
  * Created by EthanCo on 2016/8/12.
  */
 public class RxHelper {
-    public static <T extends BaseDataBean> Observable.Transformer<BaseBeanResponse<T>, T> handleResult() {
-        return new Observable.Transformer<BaseBeanResponse<T>, T>() {
+    public static <T extends BaseDataBean> Observable.Transformer<BaseResponse<T>, T> handleResult() {
+        return new Observable.Transformer<BaseResponse<T>, T>() {
 
             @Override
-            public Observable<T> call(Observable<BaseBeanResponse<T>> tObservable) {
-                return tObservable.flatMap(new Func1<BaseBeanResponse<T>, Observable<T>>() {
+            public Observable<T> call(Observable<BaseResponse<T>> tObservable) {
+                return tObservable.flatMap(new Func1<BaseResponse<T>, Observable<T>>() {
                     @Override
-                    public Observable<T> call(BaseBeanResponse<T> result) {
+                    public Observable<T> call(BaseResponse<T> result) {
                         if (AppCommandType.SUCCESS.equals(result.getResult())) {
                             return createData(result.getData());
                         } else {

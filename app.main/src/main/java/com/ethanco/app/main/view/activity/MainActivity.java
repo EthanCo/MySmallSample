@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ethanco.app.main.R;
-import com.ethanco.app.main.view.abs.MainView;
-import com.ethanco.app.main.viewmodel.abs.MainViewModel;
+import com.ethanco.app.main.view.abs.ITimeView;
+import com.ethanco.app.main.viewmodel.TimeViewModel;
 import com.lib.frame.view.BaseActivity;
 import com.lib.network.RetrofitFactory;
 import com.lib.utils.L;
@@ -19,7 +19,7 @@ import net.wequick.small.Small;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity<MainView, MainViewModel> implements MainView, View.OnClickListener {
+public class MainActivity extends BaseActivity<ITimeView, TimeViewModel> implements ITimeView, View.OnClickListener {
 
     @Bind(R.id.et_upgrade)
     EditText etUpgrade;
@@ -46,8 +46,8 @@ public class MainActivity extends BaseActivity<MainView, MainViewModel> implemen
     }
 
     @Override
-    protected MainViewModel createViewModel() {
-        return new MainViewModel();
+    protected TimeViewModel createViewModel() {
+        return new TimeViewModel();
     }
 
     @Override

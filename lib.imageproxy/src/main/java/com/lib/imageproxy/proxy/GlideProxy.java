@@ -25,7 +25,7 @@ import java.io.File;
  * Created by EthanCo on 2016/6/23.
  */
 @SuppressWarnings("unchecked")
-public class GlideProxy extends ImageProxy {
+class GlideProxy extends ImageProxy {
 
     private GlideProxy() {
     }

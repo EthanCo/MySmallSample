@@ -1,9 +1,9 @@
-package com.ethanco.app.main.viewmodel.abs;
+package com.ethanco.app.main.viewmodel;
 
 
 import android.support.annotation.NonNull;
 
-import com.ethanco.app.main.view.abs.MainView;
+import com.ethanco.app.main.view.abs.ITimeView;
 import com.lib.frame.viewmodel.BaseViewModel;
 import com.lib.network.NetFacade;
 import com.lib.network.bean.request.CmdRequest;
@@ -23,8 +23,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by EthanCo on 2016/8/11.
  */
-public class MainViewModel extends BaseViewModel<MainView> {
-    public static final String TAG = "Z-MainViewModel";
+public class TimeViewModel extends BaseViewModel<ITimeView> {
 
     public void getServiceTime() {
         getView().showProgressDialog();

@@ -5,7 +5,7 @@ import com.lib.frame.view.ProcessDialogView;
 /**
  * Created by EthanCo on 2016/8/11.
  */
-public interface MainView extends ProcessDialogView {
+public interface ITimeView extends ProcessDialogView {
 
     void getServiceTimeSuccess(String time);
 

@@ -11,7 +11,8 @@ import com.ethanco.service.MusicService;
 import com.lib.frame.view.BaseActivity;
 import com.lib.frame.viewmodel.BaseViewModel;
 import com.lib.imageproxy.abs.ImageProxy;
-import com.lib.imageproxy.proxy.GlideProxy;
+import com.lib.imageproxy.proxy.ImageProxyFactory;
+import com.lib.imageproxy.proxy.Type;
 import com.lib.utils.T;
 
 import butterknife.Bind;
@@ -44,7 +45,7 @@ public class MusicActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.btn_start_music_service).setOnClickListener(this);
         findViewById(R.id.btn_stop_music_service).setOnClickListener(this);
 
-        ImageProxy imageProxy = GlideProxy.getInstace();
+        ImageProxy imageProxy = ImageProxyFactory.create(Type.GLIDE);
         imageProxy.with(this).load(imgUrl).into(imgCover);
     }
 
@@ -57,7 +58,7 @@ public class MusicActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_show:
-                T.show(this,"Music");
+                T.show(this, "Music");
                 break;
             case R.id.btn_start_music_service:
                 startService(new Intent(this, MusicService.class));

@@ -4,7 +4,7 @@ package com.lib.network.bean.response;
  * @Description Time Response
  * Created by EthanCo on 2016/6/12.
  */
-public class TimeResponse extends BaseBeanResponse<TimeResponse.Entity> {
+public class TimeResponse extends BaseResponse<TimeResponse.Entity> {
 
     public static class Entity extends BaseDataBean {
         public String getTime() {
