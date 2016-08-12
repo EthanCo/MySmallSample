@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
 
 /**
  * @Description 网络访问 门面
- * 所有网络访问通过该类进行
+ * 网络访问通过该类进行
  * Created by EthanCo on 2016/8/8.
  */
 public class NetFacade {

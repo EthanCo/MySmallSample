@@ -9,16 +9,15 @@ import com.lib.network.NetFacade;
 import com.lib.network.bean.request.CmdRequest;
 import com.lib.network.bean.response.TimeResponse;
 import com.lib.network.model.RequestModel;
+import com.lib.network.sbscribe.RxHelper;
 import com.lib.network.sbscribe.RxSubscriber;
 import com.lib.utils.L;
 
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by EthanCo on 2016/8/11.
@@ -41,24 +40,24 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                         return getServiceTimeFromNet(cmd);
                     }
                 })
-                .observeOn(AndroidSchedulers.mainThread()) //表示subscribe()在主线程中执行
-                .subscribeOn(Schedulers.io()) //表示subscribe()之前的代码在异步线程(IO)中执行
-                .subscribe(new RxSubscriber<TimeResponse>(new Action1<TimeResponse>() {
+                .compose(RxHelper.<TimeResponse.Entity>handleResult())
+                .subscribe(new RxSubscriber<TimeResponse.Entity>(new Action1<TimeResponse.Entity>() {
                     @Override
-                    public void call(TimeResponse timeResponse) {
-                        //一般情况下，操作在此处完成即可
-                        String time = timeResponse.getData().getTime();
+                    public void call(TimeResponse.Entity entity) {
+                        String time = entity.getTime();
                         L.i("time:" + time);
                         getView().getServiceTimeSuccess(time);
                     }
-                }, getView()) {
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        getView().getServiceTimeFailed(e.getLocalizedMessage());
-                    }
-                });
+                }, getView()));
     }
+
+    /*{
+        @Override
+        public void onError(Throwable e) {
+        super.onError(e);
+        getView().getServiceTimeFailed(e.getLocalizedMessage());
+    }
+    }*/
 
     @NonNull
     private Observable<TimeResponse> getServiceTimeFromNet(CmdRequest cmd) {
