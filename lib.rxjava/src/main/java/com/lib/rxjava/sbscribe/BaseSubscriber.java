@@ -1,4 +1,4 @@
-package com.ethanco.lib.rxjava.sbscribe;
+package com.lib.rxjava.sbscribe;
 
 import rx.Subscriber;
 

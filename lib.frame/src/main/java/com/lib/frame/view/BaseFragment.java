@@ -17,6 +17,7 @@ import com.lib.frame.viewmodel.BaseViewModel;
  * @Description Fragment 基类
  * Created by EthanCo on 2016/6/13.
  */
+@SuppressWarnings("unchecked")
 public abstract class BaseFragment<V, T extends BaseViewModel<V>> extends Fragment {
     private String title;
     protected boolean isVisibleToUser;

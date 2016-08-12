@@ -1,6 +1,7 @@
 package com.lib.network;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 
 import com.lib.network.observer.Observer;
@@ -132,7 +133,7 @@ public class BodyInterceptor implements Interceptor {
 
     public static final int TYPE_NOTIFY_OBSERVER = 8945;
 
-    private static Handler mH = new Handler() {
+    private static Handler mH = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == TYPE_NOTIFY_OBSERVER) {

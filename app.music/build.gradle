@@ -28,5 +28,4 @@ dependencies {
     compile project(':lib.imageproxy')
     compile project(':lib.frame')
     compile project(':lib.style')
-    compile project(':lib.rxjava')
 }

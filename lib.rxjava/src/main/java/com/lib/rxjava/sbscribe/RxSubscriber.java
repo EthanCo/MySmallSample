@@ -1,4 +1,8 @@
-package com.ethanco.lib.rxjava.sbscribe;
+package com.lib.rxjava.sbscribe;
+
+import android.util.Log;
+
+import java.lang.reflect.Method;
 
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -10,6 +14,7 @@ import rx.functions.Action1;
  */
 public class RxSubscriber<T> extends LogSubscriber<T> {
 
+    private Object reflectObj;
     private Action1<? super T> onNext;
 
     private Action0 onCompleted;
@@ -33,13 +38,60 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
         this.onCompleted = onCompleted;
     }
 
-    public void handler() {
-        //TODO 反射
+    public RxSubscriber(final Action1<? super T> onNext, Object o) {
+        this(onNext);
+        this.reflectObj = o;
+    }
+
+    public RxSubscriber(Action0 onCompleted, Object o) {
+        this(onCompleted);
+        this.reflectObj = o;
+    }
+
+    public RxSubscriber(Object o) {
+        this.reflectObj = o;
+    }
+
+    public void showProcessDialog(Object o) {
+        invoke(o, "showProgressDialog");
+    }
+
+    public void dismissProgressDialog(Object o) {
+        invoke(o, "dismissProgressDialog");
+    }
+
+    public void invoke(Object o, String methodName) {
+        String className = o.getClass().getName();
+        Log.i(TAG, "className: " + className);
+
+        Class[] classArr = o.getClass().getInterfaces();
+        String interfaceClassName;
+        for (Class interfaceClass1 : classArr) {
+            Class[] classArr2 = interfaceClass1.getInterfaces();
+            for (Class interfaceClass : classArr2) {
+                interfaceClassName = interfaceClass.getName();
+                Log.i(TAG, "interfaceClassName:" + interfaceClassName);
+                if ("com.lib.frame.view.ProcessDialogView".equals(interfaceClassName)) {
+                    Method method = null;
+                    try {
+                        method = o.getClass().getMethod(methodName);
+                        method.invoke(o);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.v(TAG, "未处理的Interface:" + interfaceClassName);
+                }
+            }
+        }
     }
 
     @Override
     public void onCompleted() {
         super.onCompleted();
+        if (null != reflectObj) {
+            dismissProgressDialog(reflectObj);
+        }
         if (null != onCompleted) {
             onCompleted.call();
         }
@@ -56,6 +108,9 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
     @Override
     public void onError(Throwable e) {
         super.onError(e);
+        if (null != reflectObj) {
+            dismissProgressDialog(reflectObj);
+        }
     }
 
     //============================= Z-使用示例 ==============================/

@@ -1,14 +1,16 @@
 package com.ethanco.app.main.viewmodel.abs;
 
+
 import android.support.annotation.NonNull;
 
 import com.ethanco.app.main.view.abs.MainView;
-import com.ethanco.lib.rxjava.sbscribe.RxSubscriber;
-import com.lib.frame.model.RequestModel;
 import com.lib.frame.viewmodel.BaseViewModel;
 import com.lib.network.NetFacade;
 import com.lib.network.bean.request.CmdRequest;
 import com.lib.network.bean.response.TimeResponse;
+import com.lib.network.model.RequestModel;
+import com.lib.network.sbscribe.RxSubscriber;
+import com.lib.utils.L;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,9 +24,11 @@ import rx.schedulers.Schedulers;
  * Created by EthanCo on 2016/8/11.
  */
 public class MainViewModel extends BaseViewModel<MainView> {
+    public static final String TAG = "Z-MainViewModel";
 
     public void getServiceTime() {
         getView().showProgressDialog();
+
         Observable.just(null)
                 .map(new Func1<Object, CmdRequest>() {
                     @Override
@@ -44,31 +48,18 @@ public class MainViewModel extends BaseViewModel<MainView> {
                     @Override
                     public void call(TimeResponse timeResponse) {
                         //一般情况下，操作在此处完成即可
+                        String time = timeResponse.getData().getTime();
+                        L.i("time:" + time);
+                        getView().getServiceTimeSuccess(time);
                     }
-                }));
+                }, getView()) {
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        getView().getServiceTimeFailed(e.getLocalizedMessage());
+                    }
+                });
     }
-
-//    new Action1<TimeResponse>() {
-//        @Override
-//        public void call(TimeResponse timeResponse) {
-//            String time = timeResponse.getData().getTime();
-//            L.i("time:" + time);
-//            getView().getServiceTimeSuccess(time);
-//        }
-//    }, new Action1<Throwable>() {
-//        @Override
-//        public void call(Throwable throwable) {
-//            L.i("throwable:" + throwable.getMessage());
-//            getView().dismissProgressDialog();
-//            getView().getServiceTimeFailed(throwable.getLocalizedMessage());
-//        }
-//    }, new Action0() {
-//        @Override
-//        public void call() {
-//            L.i("complete");
-//            getView().dismissProgressDialog();
-//        }
-//    }
 
     @NonNull
     private Observable<TimeResponse> getServiceTimeFromNet(CmdRequest cmd) {

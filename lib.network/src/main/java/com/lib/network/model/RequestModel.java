@@ -1,4 +1,4 @@
-package com.lib.frame.model;
+package com.lib.network.model;
 
 import com.lib.network.AppCommandType;
 import com.lib.network.bean.request.CmdRequest;
@@ -7,8 +7,7 @@ import com.lib.network.bean.request.CmdRequest;
  * @Description 生成 请求 的 Model
  * Created by EthanCo on 2016/7/4.
  */
-public class RequestModel implements BaseModel {
-
+public class RequestModel {
 
     public CmdRequest generationGetServiceTimeCmd() {
         CmdRequest cmd = new CmdRequest();

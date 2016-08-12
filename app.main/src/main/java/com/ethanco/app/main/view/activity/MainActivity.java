@@ -9,6 +9,7 @@ import com.ethanco.app.main.R;
 import com.ethanco.app.main.view.abs.MainView;
 import com.ethanco.app.main.viewmodel.abs.MainViewModel;
 import com.lib.frame.view.BaseActivity;
+import com.lib.network.RetrofitFactory;
 import com.lib.utils.L;
 import com.lib.utils.T;
 import com.lib.utils.dialog.LoadingDialog;
@@ -40,6 +41,8 @@ public class MainActivity extends BaseActivity<MainView, MainViewModel> implemen
         findViewById(R.id.btn_upgrade).setOnClickListener(this);
         findViewById(R.id.btn_go_music_activity).setOnClickListener(this);
         findViewById(R.id.btn_network).setOnClickListener(this);
+
+        RetrofitFactory.init(getApplication());
     }
 
     @Override
@@ -67,7 +70,7 @@ public class MainActivity extends BaseActivity<MainView, MainViewModel> implemen
                 Small.openUri("music", MainActivity.this);
                 break;
             case R.id.btn_network:
-
+                mViewModel.getServiceTime();
                 break;
             default:
         }
