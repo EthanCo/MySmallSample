@@ -28,7 +28,7 @@ import okio.BufferedSource;
  * @Description response Body 拦截器
  * Created by EthanCo on 2016/7/14.
  */
-public class BodyInterceptor implements Interceptor {
+class BodyInterceptor implements Interceptor {
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     @Override

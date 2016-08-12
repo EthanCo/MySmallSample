@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
 /**
  * 用于string于response和requetbody之间的切换
  */
-public class ToStringConverterFactory extends Converter.Factory {
+class ToStringConverterFactory extends Converter.Factory {
     private static final MediaType MEDIA_TYPE = MediaType.parse("text/plain");
 
 

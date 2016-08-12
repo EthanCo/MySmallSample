@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * <p>
  * Created by Zhk on 2016/1/5.
  */
-public class RetrofitFactory {
+class RetrofitFactory {
     private OkHttpClient okHttpClient;
 
     private RetrofitFactory() {
@@ -46,6 +46,10 @@ public class RetrofitFactory {
     private HashMap<String, Retrofit> retrofitMap = new HashMap<>();
 
     public Retrofit createRetrofit(String baseUrl) {
+        if (mContext == null) {
+            throw new IllegalStateException("context is null,please use NetFacade.init() first");
+        }
+
         Retrofit retrofit = retrofitMap.get(baseUrl);
 
         if (retrofit == null) {

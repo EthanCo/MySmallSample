@@ -9,7 +9,7 @@ import com.ethanco.app.main.R;
 import com.ethanco.app.main.view.abs.ITimeView;
 import com.ethanco.app.main.viewmodel.TimeViewModel;
 import com.lib.frame.view.BaseActivity;
-import com.lib.network.RetrofitFactory;
+import com.lib.network.NetFacade;
 import com.lib.utils.L;
 import com.lib.utils.T;
 import com.lib.utils.dialog.LoadingDialog;
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity<ITimeView, TimeViewModel> impleme
         findViewById(R.id.btn_go_music_activity).setOnClickListener(this);
         findViewById(R.id.btn_network).setOnClickListener(this);
 
-        RetrofitFactory.init(getApplication());
+        NetFacade.init(getApplication());
     }
 
     @Override

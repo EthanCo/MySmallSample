@@ -10,7 +10,7 @@ public class NetWorkApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        RetrofitFactory.init(this);
+        NetFacade.init(this);
         //RetrofitFactory.register(new ErrorObserver());
     }
 }

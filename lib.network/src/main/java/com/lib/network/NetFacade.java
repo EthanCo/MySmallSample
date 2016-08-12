@@ -1,7 +1,10 @@
 package com.lib.network;
 
+import android.app.Application;
 import android.os.Build;
 import android.util.ArrayMap;
+
+import com.lib.network.observer.Observer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,5 +54,23 @@ public class NetFacade {
             service = provideRetrofit(BASE_URL).create(APIService.class);
         }
         return service;
+    }
+
+    /**
+     * 初始化
+     *
+     * @param application
+     */
+    public static void init(Application application) {
+        RetrofitFactory.init(application);
+    }
+
+    /**
+     * 注册 响应观察者
+     *
+     * @param observer
+     */
+    public static void register(Observer observer) {
+        RetrofitFactory.register(observer);
     }
 }
