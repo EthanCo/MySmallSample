@@ -1,9 +1,10 @@
-package com.lib.utils.dialog;
+package com.lib.style.dialog;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.lib.utils.R;
+import com.lib.style.R;
+
 
 /**
  * @Description 等待加载对话框

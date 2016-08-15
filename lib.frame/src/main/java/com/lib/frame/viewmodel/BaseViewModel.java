@@ -34,18 +34,4 @@ public abstract class BaseViewModel<T> {
             mViewRef = null;
         }
     }
-
-//    /**
-//     * 检查Response是否成功
-//     *
-//     * @param response
-//     * @return true 成功
-//     */
-//    protected boolean checkResponseResult(BaseBeanResponse response) {
-//        if (AppCommandType.SUCCESS.equals(response.getResult())) {
-//            return true;
-//        } else {
-//            throw new IllegalStateException(response.getData().getMessage());
-//        }
-//    }
 }

@@ -10,9 +10,9 @@ import com.ethanco.app.main.view.abs.ITimeView;
 import com.ethanco.app.main.viewmodel.TimeViewModel;
 import com.lib.frame.view.BaseActivity;
 import com.lib.network.NetFacade;
+import com.lib.style.dialog.LoadingDialog;
 import com.lib.utils.L;
 import com.lib.utils.T;
-import com.lib.utils.dialog.LoadingDialog;
 
 import net.wequick.small.Small;
 

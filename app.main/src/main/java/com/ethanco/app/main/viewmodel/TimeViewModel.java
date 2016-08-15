@@ -11,7 +11,6 @@ import com.lib.network.bean.response.TimeResponse;
 import com.lib.network.model.RequestModel;
 import com.lib.network.sbscribe.RxHelper;
 import com.lib.network.sbscribe.RxSubscriber;
-import com.lib.utils.L;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,23 +35,30 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                 .flatMap(new Func1<CmdRequest, Observable<TimeResponse>>() {
                     @Override
                     public Observable<TimeResponse> call(CmdRequest cmd) {
-                        return getServiceTimeFromNet(cmd);
+                        return getServiceTimeFromNet(cmd); //访问网络获取数据 并转换为Observable<TimeResponse>
                     }
                 })
                 .compose(RxHelper.<TimeResponse.Entity>handleResult()) //检查返回结果是否成功，并切换线程
                 .subscribe(new RxSubscriber(new Action1<TimeResponse.Entity>() {
                     @Override
                     public void call(TimeResponse.Entity entity) {
-                        L.i("Z-Time:" + entity.getTime());
-                        getView().getServiceTimeSuccess(entity.getTime());
+                        getView().getServiceTimeSuccess(entity.getTime()); //获取成功，调用view层方法
                     }
                 }, getView()));
+                /*
+                传入getView() (返回的类为ProcessDialogView子类)，
+                自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
+
+                此处为当调用onError和onCompleted时，自动调用dissmissProcessDialog，
+                当onError时自动调用有@LoadFailed注解的方法
+                */
     }
 
     @NonNull
     private Observable<TimeResponse> getServiceTimeFromNet(CmdRequest cmd) {
         return NetFacade.getInstance()
                 .provideDefualtService()
-                .getServerTime(cmd).delay(2, TimeUnit.SECONDS);
+                .getServerTime(cmd)
+                .delay(2, TimeUnit.SECONDS);
     }
 }
