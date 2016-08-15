@@ -24,14 +24,6 @@ class StrategyMaker<T> {
         matchers.add(new ActionMatcher(matchListener));
     }
 
-//    static class SingleTon {
-//        private static StrategyHandler sInstance = new StrategyHandler();
-//    }
-//
-//    public static StrategyHandler getInstance() {
-//        return SingleTon.sInstance;
-//    }
-
     /**
      *
      * @param o

@@ -7,7 +7,7 @@ import com.lib.network.sbscribe.matcher.bean.ActionBean;
 import rx.Subscriber;
 
 /**
- * @Description TODO
+ * @Description 出入ActionBean的匹配
  * Created by EthanCo on 2016/8/15.
  */
 public class ActionMatcher<T> extends StrategyMacther<T> {

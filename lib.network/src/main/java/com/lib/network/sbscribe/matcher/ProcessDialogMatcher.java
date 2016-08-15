@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import rx.Subscriber;
 
 /**
+ * @Description 等待框匹配
  * Created by EthanCo on 2016/8/15.
  */
 public class ProcessDialogMatcher<T> extends StrategyMacther<T> {
