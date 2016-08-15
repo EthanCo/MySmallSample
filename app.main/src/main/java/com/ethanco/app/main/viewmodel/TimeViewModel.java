@@ -11,6 +11,7 @@ import com.lib.network.bean.response.TimeResponse;
 import com.lib.network.model.RequestModel;
 import com.lib.network.sbscribe.RxHelper;
 import com.lib.network.sbscribe.RxSubscriber;
+import com.lib.utils.L;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,6 +43,7 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                 .subscribe(new RxSubscriber(new Action1<TimeResponse.Entity>() {
                     @Override
                     public void call(TimeResponse.Entity entity) {
+                        L.i("Z-Time:" + entity.getTime());
                         getView().getServiceTimeSuccess(entity.getTime());
                     }
                 }, getView()));

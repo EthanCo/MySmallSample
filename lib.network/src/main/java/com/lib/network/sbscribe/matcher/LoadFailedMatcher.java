@@ -22,7 +22,7 @@ public class LoadFailedMatcher<T> extends StrategyMacther<T> {
     }
 
     @Override
-    protected Subscriber<T> generateSubscriber(final Object reflectObj, Class cls) {
+    protected Subscriber<T> generateSubscriber(final Object o, Class cls) {
         final List<Method> loadFailedList = new ArrayList<>();
         Method[] methods = cls.getMethods();
         for (Method method : methods) {
@@ -37,13 +37,13 @@ public class LoadFailedMatcher<T> extends StrategyMacther<T> {
 
             @Override
             public void onError(Throwable e) {
-                if (null != reflectObj) {
+                if (null != o) {
                     if (loadFailedList.size() == 0) {
                         throw new IllegalStateException("not found @LoadFailed Annotation,this is a must");
                     }
                     for (Method method : loadFailedList) {
                         try {
-                            method.invoke(reflectObj, e.getLocalizedMessage());
+                            method.invoke(o, e.getLocalizedMessage());
                         } catch (IllegalAccessException e1) {
                             e1.printStackTrace();
                         } catch (InvocationTargetException e1) {

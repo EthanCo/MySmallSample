@@ -1,8 +1,8 @@
 package com.lib.network.sbscribe;
 
 
-import com.lib.network.sbscribe.base.BaseSubscriber;
 import com.lib.network.sbscribe.base.LogSubscriber;
+import com.lib.network.sbscribe.matcher.bean.ActionBean;
 
 import rx.Subscriber;
 import rx.functions.Action0;
@@ -39,13 +39,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
             throw new IllegalArgumentException("onNext can not be null");
         }
 
-        Subscriber<T> completedSubscriber = new BaseSubscriber<T>() {
-            @Override
-            public void onNext(T t) {
-                onNext.call(t);
-            }
-        };
-        executor.add(completedSubscriber);
+        maker.recordAction(new ActionBean<T>(onNext), false);
     }
 
     /**
@@ -57,13 +51,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
             throw new IllegalArgumentException("onCompleted can not be null");
         }
 
-        Subscriber<T> completedSubscriber = new BaseSubscriber<T>() {
-            @Override
-            public void onCompleted() {
-                onCompleted.call();
-            }
-        };
-        executor.add(completedSubscriber);
+        maker.recordAction(new ActionBean<T>(onCompleted), false);
     }
 
     /**
@@ -72,7 +60,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
      */
     public RxSubscriber(final Action1<? super T> onNext, Object o) {
         this(onNext);
-        maker.recordAction(o);
+        maker.recordAction(o, true);
     }
 
     /**
@@ -81,7 +69,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
      */
     public RxSubscriber(Action0 onCompleted, Object o) {
         this(onCompleted);
-        maker.recordAction(o);
+        maker.recordAction(o, true);
     }
 
     /**
@@ -89,7 +77,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
      */
     public RxSubscriber(Object o) {
         this();
-        maker.recordAction(o);
+        maker.recordAction(o, true);
     }
 
 

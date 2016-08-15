@@ -2,6 +2,7 @@ package com.lib.network.sbscribe;
 
 import android.util.Log;
 
+import com.lib.network.sbscribe.matcher.ActionMatcher;
 import com.lib.network.sbscribe.matcher.LoadFailedMatcher;
 import com.lib.network.sbscribe.matcher.ProcessDialogMatcher;
 
@@ -13,16 +14,14 @@ import java.util.List;
  * Created by EthanCo on 2016/8/12.
  */
 class StrategyMaker<T> {
-
     private static final String TAG = "Z-StrategyMarker";
-    private Object reflectObj; //进行反射的Obj
-
     private List<StrategyMacther> matchers = new ArrayList<>();
 
     StrategyMaker(StrategyMacther.MatchListener<T> matchListener) {
         //init matchers
         matchers.add(new ProcessDialogMatcher(matchListener));
         matchers.add(new LoadFailedMatcher(matchListener));
+        matchers.add(new ActionMatcher(matchListener));
     }
 
 //    static class SingleTon {
@@ -33,10 +32,18 @@ class StrategyMaker<T> {
 //        return SingleTon.sInstance;
 //    }
 
-    void recordAction(Object o) {
+    /**
+     *
+     * @param o
+     * @param iterate 是否轮询其父接口获取更多的 StrategyMacther
+     */
+    void recordAction(Object o, boolean iterate) {
         if (o == null) return;
-        this.reflectObj = o;
-        iterateClasses(reflectObj, o.getClass());
+        if (iterate) {
+            iterateClasses(o, o.getClass());
+        } else {
+            handleIfMatching(o, o.getClass());
+        }
     }
 
     private void iterateClasses(Object o, Class cls) {
@@ -53,7 +60,7 @@ class StrategyMaker<T> {
         }
     }
 
-    void handleIfMatching(Object o, Class cls) {
+    private void handleIfMatching(Object o, Class cls) {
         String className = cls.getName();
         Log.i(TAG, "ClassName:" + className);
         for (StrategyMacther matcher : matchers) {

@@ -3,15 +3,15 @@ package com.lib.network.sbscribe;
 import rx.Subscriber;
 
 /**
- * @Description 匹配器
+ * @Description 策略匹配器
  * Created by EthanCo on 2016/8/15.
  */
 public abstract class StrategyMacther<T> {
-    public boolean handle(final Object reflectObj, Class cls) {
+    public boolean handle(final Object o, Class cls) {
         String className = cls.getName();
-        if (!matching(reflectObj, className)) return false;
+        if (!matching(o, className)) return false;
 
-        Subscriber<T> subscriber = generateSubscriber(reflectObj, cls);
+        Subscriber<T> subscriber = generateSubscriber(o, cls);
         if (subscriber != null) {
             if (matchListener != null) {
                 matchListener.matchSuccess(subscriber);
@@ -22,9 +22,9 @@ public abstract class StrategyMacther<T> {
         }
     }
 
-    protected abstract Subscriber<T> generateSubscriber(final Object reflectObj, Class cls);
+    protected abstract Subscriber<T> generateSubscriber(final Object o, Class cls);
 
-    protected abstract boolean matching(Object o, String className);
+    public abstract boolean matching(Object o, String className);
 
     protected MatchListener<T> matchListener;
 
