@@ -19,7 +19,7 @@ public class LoadingDialog {
 
     public static void show(Context context, String title, String message) {
         dismiss();
-        mDialog = ProgressDialog.show(context, title, message);
+        mDialog = ProgressDialog.show(context, title, message, true, true);
     }
 
     public static void show(Context context, int title, int message) {

@@ -4,6 +4,7 @@ package com.ethanco.app.main.viewmodel;
 import android.support.annotation.NonNull;
 
 import com.ethanco.app.main.view.abs.ITimeView;
+import com.lib.frame.anno.AutoDestory;
 import com.lib.frame.viewmodel.BaseViewModel;
 import com.lib.network.NetFacade;
 import com.lib.network.bean.request.CmdRequest;
@@ -15,6 +16,7 @@ import com.lib.network.sbscribe.RxSubscriber;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Subscription;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
@@ -23,9 +25,12 @@ import rx.functions.Func1;
  */
 public class TimeViewModel extends BaseViewModel<ITimeView> {
 
+    @AutoDestory
+    Subscription subscription; //有该注解的Subscription，在detachView的时候将自动unsubscribe
+
     public void getServiceTime() {
         getView().showProgressDialog();
-        Observable.just(null)
+        subscription = Observable.just(null)
                 .map(new Func1<Object, CmdRequest>() {
                     @Override
                     public CmdRequest call(Object o) {
@@ -52,6 +57,7 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                 此处为当调用onError和onCompleted时，自动调用dissmissProcessDialog，
                 当onError时自动调用有@LoadFailed注解的方法
                 */
+        detachView();
     }
 
     @NonNull
