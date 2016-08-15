@@ -17,6 +17,13 @@ import rx.schedulers.Schedulers;
  * Created by EthanCo on 2016/8/12.
  */
 public class RxHelper {
+    /**
+     * 处理返回结果，如果错误则会执行onError
+     * 并且进行线程的切换 subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+     *
+     * @param <T>
+     * @return
+     */
     public static <T extends BaseDataBean> Observable.Transformer<BaseResponse<T>, T> handleResult() {
         return new Observable.Transformer<BaseResponse<T>, T>() {
 

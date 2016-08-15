@@ -21,7 +21,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
 
     private List<Method> loadFailedList = new ArrayList<>();
     private boolean haveProcessDialog;
-    private Object reflectObj;
+    private Object reflectObj; //进行反射的Obj
     private Action1<? super T> onNext;
 
     private Action0 onCompleted;
@@ -29,6 +29,9 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
     public RxSubscriber() {
     }
 
+    /**
+     * @param onNext 对 OnNext 进行自定义处理
+     */
     public RxSubscriber(final Action1<? super T> onNext) {
         if (onNext == null) {
             throw new IllegalArgumentException("onNext can not be null");
@@ -37,6 +40,9 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
         this.onNext = onNext;
     }
 
+    /**
+     * @param onCompleted 对onCompeled进行自定义处理
+     */
     public RxSubscriber(Action0 onCompleted) {
         if (onCompleted == null) {
             throw new IllegalArgumentException("onCompleted can not be null");
@@ -45,18 +51,29 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
         this.onCompleted = onCompleted;
     }
 
+    /**
+     * @param onNext 对 OnNext 进行自定义处理
+     * @param o      传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
+     */
     public RxSubscriber(final Action1<? super T> onNext, Object o) {
         this(onNext);
         this.reflectObj = o;
         iterateClasses(reflectObj, o.getClass());
     }
 
+    /**
+     * @param onCompleted 对onCompeled进行自定义处理
+     * @param o           传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
+     */
     public RxSubscriber(Action0 onCompleted, Object o) {
         this(onCompleted);
         this.reflectObj = o;
         iterateClasses(reflectObj, o.getClass());
     }
 
+    /**
+     * @param o 传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
+     */
     public RxSubscriber(Object o) {
         this.reflectObj = o;
         iterateClasses(reflectObj, o.getClass());
@@ -74,65 +91,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
         }
     }
 
-    public void invoke(Object o, String methodName) {
-        String className = o.getClass().getName();
-        Log.i(TAG, "className: " + className);
-
-        //Class[] classes = o.getClass().getInterfaces();
-        iterateClasses(o, o.getClass());
-
-        /*String interfaceClassName;
-        for (Class interfaceClass1 : classes) {
-            Class[] classArr2 = interfaceClass1.getInterfaces();
-            for (Class interfaceClass : classArr2) {
-                interfaceClassName = interfaceClass.getName();
-                Log.i(TAG, "interfaceClassName:" + interfaceClassName);
-                if ("com.lib.frame.view.ProcessDialogView".equals(interfaceClassName)) {
-                    Method method = null;
-                    try {
-                        method = o.getClass().getMethod(methodName);
-                        method.invoke(o);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Log.v(TAG, "未处理的Interface:" + interfaceClassName);
-                }
-            }
-        }*/
-    }
-
-    /*public void handleClasses(Object o, Class[] classes) {
-        String interfaceClassName;
-        for (Class interfaceCls : classes) {
-            interfaceClassName = interfaceCls.getName();
-            Log.i(TAG, "interfaceClassName:" + interfaceClassName);
-            //TODO Handler
-            if ("com.lib.frame.view.ProcessDialogView".equals(interfaceClassName)) {
-                Method method = null;
-                try {
-                    method = o.getClass().getMethod("dismissProgressDialog");
-                    method.invoke(o);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Log.v(TAG, "未处理的Interface:" + interfaceClassName);
-            }
-
-            Class superClass = interfaceCls.getSuperclass();
-            Log.i(TAG, "handleClasses : ");
-            if (superClass != null) {
-                Class[] superInterfaceClasses = superClass.getInterfaces();
-                if (null != superInterfaceClasses && superInterfaceClasses.length > 0) {
-                    Log.i(TAG, "handleClasses : ");
-                    handleClasses(o, superInterfaceClasses);
-                }
-            }
-        }
-    }*/
-
-    public void iterateClasses(Object o, Class cls) {
+    private void iterateClasses(Object o, Class cls) {
         handleIfMatching(o, cls);
 
         Class superClass = cls.getSuperclass();
@@ -147,16 +106,16 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
         }
     }
 
-    private void handleIfMatching(Object o, Class interfaceCls) {
-        String interfaceClassName = interfaceCls.getName();
-        Log.i(TAG, "interfaceClassName:" + interfaceClassName);
+    private void handleIfMatching(Object o, Class cls) {
+        String interfaceClassName = cls.getName();
+        Log.i(TAG, "ClassName:" + interfaceClassName);
         if ("com.lib.frame.view.ProcessDialogView".equals(interfaceClassName)) {
             haveProcessDialog = true;
         } else {
-            Log.v(TAG, "未处理的Interface:" + interfaceClassName);
+            //Log.v(TAG, "未处理的Interface:" + interfaceClassName);
         }
 
-        Method[] methods = interfaceCls.getMethods();
+        Method[] methods = cls.getMethods();
         for (Method method : methods) {
             LoadFailed loadFailedAnno = method.getAnnotation(LoadFailed.class);
             if (loadFailedAnno != null) {
@@ -257,4 +216,26 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
                     }
                 });
     }*/
+
+    //传入getView() 自动调用 dismissProcessDialog (需继承ProcessDialogView)，出现错误时自动调用有@LoadFailed注解的方法
+    /*Observable.just(null)
+            .map(new Func1<Object, CmdRequest>() {
+        @Override
+        public CmdRequest call(Object o) {
+            return RequestModel.getInstance().generationGetServiceTimeCmd();
+        }
+    })
+            .flatMap(new Func1<CmdRequest, Observable<TimeResponse>>() {
+        @Override
+        public Observable<TimeResponse> call(CmdRequest cmd) {
+            return getServiceTimeFromNet(cmd);
+        }
+    })
+            .compose(RxHelper.<TimeResponse.Entity>handleResult()) //检查返回结果是否成功，并切换线程
+            .subscribe(new RxSubscriber(new Action1<TimeResponse.Entity>() {
+        @Override
+        public void call(TimeResponse.Entity entity) {
+            getView().getServiceTimeSuccess(entity.getTime());
+        }
+    }, getView()));*/
 }

@@ -11,7 +11,6 @@ import com.lib.network.bean.response.TimeResponse;
 import com.lib.network.model.RequestModel;
 import com.lib.network.sbscribe.RxHelper;
 import com.lib.network.sbscribe.RxSubscriber;
-import com.lib.utils.L;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,12 +24,7 @@ import rx.functions.Func1;
 public class TimeViewModel extends BaseViewModel<ITimeView> {
 
     public void getServiceTime() {
-
-//        CmdRequest cmd = RequestModel.getInstance().generationGetServiceTimeCmd();
-//        getServiceTimeFromNet(cmd)
-
         getView().showProgressDialog();
-
         Observable.just(null)
                 .map(new Func1<Object, CmdRequest>() {
                     @Override
@@ -44,24 +38,14 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                         return getServiceTimeFromNet(cmd);
                     }
                 })
-                .compose(RxHelper.<TimeResponse.Entity>handleResult())
-                .subscribe(new RxSubscriber<TimeResponse.Entity>(new Action1<TimeResponse.Entity>() {
+                .compose(RxHelper.<TimeResponse.Entity>handleResult()) //检查返回结果是否成功，并切换线程
+                .subscribe(new RxSubscriber(new Action1<TimeResponse.Entity>() {
                     @Override
                     public void call(TimeResponse.Entity entity) {
-                        String time = entity.getTime();
-                        L.i("time:" + time);
-                        getView().getServiceTimeSuccess(time);
+                        getView().getServiceTimeSuccess(entity.getTime());
                     }
                 }, getView()));
     }
-
-    /*{
-        @Override
-        public void onError(Throwable e) {
-        super.onError(e);
-        getView().getServiceTimeFailed(e.getLocalizedMessage());
-    }
-    }*/
 
     @NonNull
     private Observable<TimeResponse> getServiceTimeFromNet(CmdRequest cmd) {
