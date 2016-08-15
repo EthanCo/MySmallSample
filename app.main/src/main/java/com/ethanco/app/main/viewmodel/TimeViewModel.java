@@ -57,7 +57,6 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                 此处为当调用onError和onCompleted时，自动调用dissmissProcessDialog，
                 当onError时自动调用有@LoadFailed注解的方法
                 */
-        detachView();
     }
 
     @NonNull
