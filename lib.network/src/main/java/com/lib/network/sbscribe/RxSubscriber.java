@@ -1,30 +1,30 @@
 package com.lib.network.sbscribe;
 
-import android.util.Log;
 
-import com.lib.network.sbscribe.handle_chain.LoadFailed;
+import com.lib.network.sbscribe.base.BaseSubscriber;
+import com.lib.network.sbscribe.base.LogSubscriber;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-
+import rx.Subscriber;
 import rx.functions.Action0;
 import rx.functions.Action1;
 
 /**
  * 一般情况下使用该Subscriber即可
  * 尽量使用该类及其子类，方面日后进行统一处理
- * Created by EthanCo on 2016/1/3.
+ * Created by EthanCo on 2016/8/10.
  */
 public class RxSubscriber<T> extends LogSubscriber<T> {
 
-    private List<Method> loadFailedList = new ArrayList<>();
-    private boolean haveProcessDialog;
-    private Object reflectObj; //进行反射的Obj
-    private Action1<? super T> onNext;
+    private StrategyExecutor<T> executor;
+    private StrategyMaker<T> maker;
 
-    private Action0 onCompleted;
+    StrategyMacther.MatchListener matchListener = new StrategyMacther.MatchListener() {
+        @Override
+        public void matchSuccess(Subscriber subscriber) {
+            executor = new StrategyExecutor<>();
+            maker = new StrategyMaker<>(matchListener);
+        }
+    };
 
     public RxSubscriber() {
     }
@@ -37,18 +37,30 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
             throw new IllegalArgumentException("onNext can not be null");
         }
 
-        this.onNext = onNext;
+        Subscriber<T> completedSubscriber = new BaseSubscriber<T>() {
+            @Override
+            public void onNext(T t) {
+                onNext.call(t);
+            }
+        };
+        executor.add(completedSubscriber);
     }
 
     /**
      * @param onCompleted 对onCompeled进行自定义处理
      */
-    public RxSubscriber(Action0 onCompleted) {
+    public RxSubscriber(final Action0 onCompleted) {
         if (onCompleted == null) {
             throw new IllegalArgumentException("onCompleted can not be null");
         }
 
-        this.onCompleted = onCompleted;
+        Subscriber<T> completedSubscriber = new BaseSubscriber<T>() {
+            @Override
+            public void onCompleted() {
+                onCompleted.call();
+            }
+        };
+        executor.add(completedSubscriber);
     }
 
     /**
@@ -57,8 +69,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
      */
     public RxSubscriber(final Action1<? super T> onNext, Object o) {
         this(onNext);
-        this.reflectObj = o;
-        iterateClasses(reflectObj, o.getClass());
+        maker.recordAction(o);
     }
 
     /**
@@ -67,100 +78,34 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
      */
     public RxSubscriber(Action0 onCompleted, Object o) {
         this(onCompleted);
-        this.reflectObj = o;
-        iterateClasses(reflectObj, o.getClass());
+        maker.recordAction(o);
     }
 
     /**
      * @param o 传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
      */
     public RxSubscriber(Object o) {
-        this.reflectObj = o;
-        iterateClasses(reflectObj, o.getClass());
+        maker.recordAction(o);
+
     }
 
-    public void dismissProgressDialog(Object o) {
-        if (haveProcessDialog) {
-            Method method = null;
-            try {
-                method = o.getClass().getMethod("dismissProgressDialog");
-                method.invoke(o);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void iterateClasses(Object o, Class cls) {
-        handleIfMatching(o, cls);
-
-        Class superClass = cls.getSuperclass();
-        if (superClass != null) handleIfMatching(o, superClass);
-
-        Class[] interfaceClasses = cls.getInterfaces();
-        if (interfaceClasses == null) return;
-
-        for (Class interfaceCls : interfaceClasses) {
-            handleIfMatching(o, interfaceCls);
-            iterateClasses(o, interfaceCls);
-        }
-    }
-
-    private void handleIfMatching(Object o, Class cls) {
-        String interfaceClassName = cls.getName();
-        Log.i(TAG, "ClassName:" + interfaceClassName);
-        if ("com.lib.frame.view.ProcessDialogView".equals(interfaceClassName)) {
-            haveProcessDialog = true;
-        } else {
-            //Log.v(TAG, "未处理的Interface:" + interfaceClassName);
-        }
-
-        Method[] methods = cls.getMethods();
-        for (Method method : methods) {
-            LoadFailed loadFailedAnno = method.getAnnotation(LoadFailed.class);
-            if (loadFailedAnno != null) {
-                loadFailedList.add(method);
-            }
-        }
-    }
 
     @Override
     public void onCompleted() {
         super.onCompleted();
-        if (null != reflectObj) {
-            dismissProgressDialog(reflectObj);
-        }
-        if (null != onCompleted) {
-            onCompleted.call();
-        }
+        executor.execCompleteds();
     }
 
     @Override
     public void onNext(T t) {
         super.onNext(t);
-        if (null != onNext) {
-            onNext.call(t);
-        }
+        executor.execNexts(t);
     }
 
     @Override
     public void onError(Throwable e) {
         super.onError(e);
-        if (null != reflectObj) {
-            dismissProgressDialog(reflectObj);
-            if (loadFailedList.size() == 0) {
-                throw new IllegalStateException("not found @LoadFailed Annotation,this is a must");
-            }
-            for (Method method : loadFailedList) {
-                try {
-                    method.invoke(reflectObj, e.getLocalizedMessage());
-                } catch (IllegalAccessException e1) {
-                    e1.printStackTrace();
-                } catch (InvocationTargetException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        }
+        executor.execErrors(e);
     }
 
     //============================= Z-使用示例 ==============================/

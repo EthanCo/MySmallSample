@@ -1,4 +1,4 @@
-package com.lib.network.sbscribe.handle_chain;
+package com.lib.network.sbscribe.anno;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

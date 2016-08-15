@@ -1,11 +1,22 @@
-package com.lib.network.sbscribe;
+package com.lib.network.sbscribe.base;
 
 import android.util.Log;
 
 /**
  * Created by EthanCo on 2016/1/3.
  */
-class LogSubscriber<T> extends BaseSubscriber<T> {
+public class LogSubscriber<T> extends BaseSubscriber<T> {
+    protected static final String TAG = "Z-Subscriber";
+    protected static boolean isDebug = true;
+
+    public static boolean isDebug() {
+        return isDebug;
+    }
+
+    public static void setIsDebug(boolean isDebug) {
+        LogSubscriber.isDebug = isDebug;
+    }
+
     @Override
     public void onCompleted() {
         Log.i(TAG, "onCompleted");
