@@ -12,15 +12,13 @@ import rx.Subscriber;
  */
 public class ProcessDialogMatcher<T> extends StrategyMacther<T> {
 
-    public ProcessDialogMatcher(StrategyMacther.MatchListener<T> matchListener) {
+    public ProcessDialogMatcher(MatchListener<T> matchListener) {
         super(matchListener);
     }
 
     @Override
-    public boolean handle(final Object reflectObj, String className) {
-        if (!matching(reflectObj, className)) return false;
-
-        Subscriber<T> processDialogSubscriber = new BaseSubscriber<T>() {
+    protected Subscriber<T> generateSubscriber(final Object reflectObj, Class cls) {
+        return new BaseSubscriber<T>() {
 
             public void dismissProgressDialog(Object o) {
                 if (o == null) return;
@@ -44,7 +42,6 @@ public class ProcessDialogMatcher<T> extends StrategyMacther<T> {
                 dismissProgressDialog(reflectObj);
             }
         };
-        return true;
     }
 
     public boolean matching(Object o, String className) {

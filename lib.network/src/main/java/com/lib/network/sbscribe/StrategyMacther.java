@@ -7,9 +7,24 @@ import rx.Subscriber;
  * Created by EthanCo on 2016/8/15.
  */
 public abstract class StrategyMacther<T> {
-    public abstract boolean handle(final Object reflectObj, String className);
+    public boolean handle(final Object reflectObj, Class cls) {
+        String className = cls.getName();
+        if (!matching(reflectObj, className)) return false;
 
-    public abstract boolean matching(Object o, String className);
+        Subscriber<T> subscriber = generateSubscriber(reflectObj, cls);
+        if (subscriber != null) {
+            if (matchListener != null) {
+                matchListener.matchSuccess(subscriber);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected abstract Subscriber<T> generateSubscriber(final Object reflectObj, Class cls);
+
+    protected abstract boolean matching(Object o, String className);
 
     protected MatchListener<T> matchListener;
 

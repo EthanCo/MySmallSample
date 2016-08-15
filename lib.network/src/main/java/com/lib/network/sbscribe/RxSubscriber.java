@@ -18,21 +18,23 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
     private StrategyExecutor<T> executor;
     private StrategyMaker<T> maker;
 
+    public RxSubscriber() {
+        executor = new StrategyExecutor<>();
+        maker = new StrategyMaker<>(matchListener);
+    }
+
     StrategyMacther.MatchListener matchListener = new StrategyMacther.MatchListener() {
         @Override
         public void matchSuccess(Subscriber subscriber) {
-            executor = new StrategyExecutor<>();
-            maker = new StrategyMaker<>(matchListener);
+            executor.add(subscriber);
         }
     };
-
-    public RxSubscriber() {
-    }
 
     /**
      * @param onNext 对 OnNext 进行自定义处理
      */
     public RxSubscriber(final Action1<? super T> onNext) {
+        this();
         if (onNext == null) {
             throw new IllegalArgumentException("onNext can not be null");
         }
@@ -50,6 +52,7 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
      * @param onCompleted 对onCompeled进行自定义处理
      */
     public RxSubscriber(final Action0 onCompleted) {
+        this();
         if (onCompleted == null) {
             throw new IllegalArgumentException("onCompleted can not be null");
         }
@@ -85,8 +88,8 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
      * @param o 传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
      */
     public RxSubscriber(Object o) {
+        this();
         maker.recordAction(o);
-
     }
 
 
