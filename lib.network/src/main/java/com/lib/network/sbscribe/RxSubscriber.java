@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.lib.network.sbscribe.handle_chain.LoadFailed;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -136,8 +135,8 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
     public void iterateClasses(Object o, Class cls) {
         handleIfMatching(o, cls);
 
-//        Class superClass = cls.getSuperclass();
-//        if (superClass != null) handleIfMatching(o, superClass);
+        Class superClass = cls.getSuperclass();
+        if (superClass != null) handleIfMatching(o, superClass);
 
         Class[] interfaceClasses = cls.getInterfaces();
         if (interfaceClasses == null) return;
@@ -159,23 +158,10 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
 
         Method[] methods = interfaceCls.getMethods();
         for (Method method : methods) {
-            Log.i(TAG, "handleIfMatching method: " + method.getName());
-            Annotation[] annotations = method.getAnnotations();
-            Log.i(TAG, "handleIfMatching method: " + method + " annotationArr.len:" + annotations.length);
             LoadFailed loadFailedAnno = method.getAnnotation(LoadFailed.class);
             if (loadFailedAnno != null) {
-                Log.i(TAG, "handleIfMatching  add: ");
                 loadFailedList.add(method);
             }
-//            for (Annotation annotation : annotations) {
-//                Log.i(TAG, "handleIfMatching method: " + method + " annotation:" + annotation);
-//                annotation.is
-////                Class<? extends Annotation> annotationType = annotation.annotationType();
-////                LoadFailed loadFailedAnnotation = annotationType.getAnnotation(LoadFailed.class);
-//                if (annotation != null) {
-//
-//                }
-//            }
         }
     }
 
@@ -196,7 +182,6 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
         if (null != onNext) {
             onNext.call(t);
         }
-        throw new RuntimeException("gsdfsdfsdf");
     }
 
     @Override
@@ -204,6 +189,9 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
         super.onError(e);
         if (null != reflectObj) {
             dismissProgressDialog(reflectObj);
+            if (loadFailedList.size() == 0) {
+                throw new IllegalStateException("not found @LoadFailed Annotation,this is a must");
+            }
             for (Method method : loadFailedList) {
                 try {
                     method.invoke(reflectObj, e.getLocalizedMessage());

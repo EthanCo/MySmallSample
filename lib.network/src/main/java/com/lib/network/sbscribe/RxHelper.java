@@ -1,5 +1,7 @@
 package com.lib.network.sbscribe;
 
+import android.text.TextUtils;
+
 import com.lib.network.AppCommandType;
 import com.lib.network.bean.response.BaseResponse;
 import com.lib.network.bean.response.BaseDataBean;
@@ -23,7 +25,7 @@ public class RxHelper {
                 return tObservable.flatMap(new Func1<BaseResponse<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(BaseResponse<T> result) {
-                        if (AppCommandType.SUCCESS.equals(result.getResult())) {
+                        if (AppCommandType.SUCCESS.equals(result.getResult()) || TextUtils.isEmpty(result.getResult())) {
                             return createData(result.getData());
                         } else {
                             return Observable.error(new RuntimeException(result.getData().getMessage()));

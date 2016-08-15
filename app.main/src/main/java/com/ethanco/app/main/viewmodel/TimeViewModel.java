@@ -25,6 +25,10 @@ import rx.functions.Func1;
 public class TimeViewModel extends BaseViewModel<ITimeView> {
 
     public void getServiceTime() {
+
+//        CmdRequest cmd = RequestModel.getInstance().generationGetServiceTimeCmd();
+//        getServiceTimeFromNet(cmd)
+
         getView().showProgressDialog();
 
         Observable.just(null)
