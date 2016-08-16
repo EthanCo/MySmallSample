@@ -7,11 +7,11 @@ import rx.Subscriber;
  * Created by EthanCo on 2016/8/15.
  */
 public abstract class StrategyMacther<T> {
-    public boolean handle(final Object o, Class cls) {
+    public boolean handle(final Object o, Class cls, int flag) {
         String className = cls.getName();
         if (!matching(o, className)) return false;
 
-        Subscriber<T> subscriber = generateSubscriber(o, cls);
+        Subscriber<T> subscriber = generateSubscriber(o, cls, flag);
         if (subscriber != null) {
             if (matchListener != null) {
                 matchListener.matchSuccess(subscriber);
@@ -22,7 +22,7 @@ public abstract class StrategyMacther<T> {
         }
     }
 
-    protected abstract Subscriber<T> generateSubscriber(final Object o, Class cls);
+    protected abstract Subscriber<T> generateSubscriber(final Object o, Class cls, int flag);
 
     public abstract boolean matching(Object o, String className);
 

@@ -18,7 +18,7 @@ public class ProcessDialogMatcher<T> extends StrategyMacther<T> {
     }
 
     @Override
-    protected Subscriber<T> generateSubscriber(final Object o, Class cls) {
+    protected Subscriber<T> generateSubscriber(final Object o, Class cls, int flag) {
         return new BaseSubscriber<T>() {
 
             public void dismissProgressDialog(Object o) {

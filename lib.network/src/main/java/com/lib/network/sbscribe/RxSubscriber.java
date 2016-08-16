@@ -57,6 +57,35 @@ public class RxSubscriber<T> extends LogSubscriber<T> {
     /**
      * @param onNext 对 OnNext 进行自定义处理
      * @param o      传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
+     * @param flag   标记，用作识别，传入该值后，注解的值需和该标记的值相同才会起作用
+     */
+    public RxSubscriber(final Action1<? super T> onNext, Object o, int flag) {
+        this(onNext);
+        maker.recordAction(o, true, flag);
+    }
+
+    /**
+     * @param onCompleted 对onCompeled进行自定义处理
+     * @param o           传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
+     * @param flag        标记，用作识别，传入该值后，注解的值需和该标记的值相同才会起作用
+     */
+    public RxSubscriber(Action0 onCompleted, Object o, int flag) {
+        this(onCompleted);
+        maker.recordAction(o, true, flag);
+    }
+
+    /**
+     * @param o    传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
+     * @param flag 标记，用作识别，传入该值后，注解的值需和该标记的值相同才会起作用
+     */
+    public RxSubscriber(Object o, int flag) {
+        this();
+        maker.recordAction(o, true, flag);
+    }
+
+    /**
+     * @param onNext 对 OnNext 进行自定义处理
+     * @param o      传入ProcessDialogView子类 自动调用 dismissProcessDialog，出现错误时自动调用有@LoadFailed注解的方法
      */
     public RxSubscriber(final Action1<? super T> onNext, Object o) {
         this(onNext);

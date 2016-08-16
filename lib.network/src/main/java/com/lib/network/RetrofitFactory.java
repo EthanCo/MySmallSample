@@ -2,6 +2,7 @@ package com.lib.network;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import com.lib.network.observer.Observer;
@@ -10,12 +11,14 @@ import com.lib.network.persistentcookiejar.PersistentCookieJar;
 import com.lib.network.persistentcookiejar.cache.SetCookieCache;
 import com.lib.network.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
+import java.io.File;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -29,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 class RetrofitFactory {
     private OkHttpClient okHttpClient;
+    private static final long HTTP_RESPONSE_DISK_CACHE_MAX_SIZE = 20 * 1024 * 1024;
 
     private RetrofitFactory() {
         initBodyInterceptor();
@@ -71,6 +75,7 @@ class RetrofitFactory {
     @NonNull
     public OkHttpClient createOkhttp() {
         if (null == okHttpClient) {
+            File httpCacheDirectory = new File(getCacheDir(getContext()), "Http_Cache");
             CookieManager cookieManager = new CookieManager();
             cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
             CookieHandler.setDefault(cookieManager);
@@ -85,6 +90,8 @@ class RetrofitFactory {
                     .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                     .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true) //错误重连
+                    .cache(new Cache(httpCacheDirectory,  //缓存
+                            HTTP_RESPONSE_DISK_CACHE_MAX_SIZE))
                     .cookieJar(jncj)
                     .build();
         }
@@ -119,4 +126,19 @@ class RetrofitFactory {
     public static void init(Application application) {
         mContext = application;
     }
+
+    public String getCacheDir(Context context) {
+        String path;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            if (null == context.getExternalCacheDir()) {
+                path = Environment.getExternalStorageDirectory().getPath();
+            } else {
+                path = context.getExternalCacheDir().getPath();
+            }
+        } else {
+            path = context.getCacheDir().getPath();
+        }
+        return path;
+    }
+
 }

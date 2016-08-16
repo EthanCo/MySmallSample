@@ -16,7 +16,7 @@ public class ActionMatcher<T> extends StrategyMacther<T> {
     }
 
     @Override
-    protected Subscriber<T> generateSubscriber(Object o, Class cls) {
+    protected Subscriber<T> generateSubscriber(Object o, Class cls, int flag) {
         final ActionBean actionBean = (ActionBean) o;
 
         return new BaseSubscriber<T>() {

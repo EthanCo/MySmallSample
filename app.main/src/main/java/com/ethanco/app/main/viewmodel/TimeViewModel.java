@@ -48,6 +48,7 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                     @Override
                     public void call(TimeResponse.Entity entity) {
                         getView().getServiceTimeSuccess(entity.getTime()); //获取成功，调用view层方法
+                        throw new RuntimeException("runTime");
                     }
                 }, getView()));
                 /*
@@ -56,6 +57,11 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
 
                 此处为当调用onError和onCompleted时，自动调用dissmissProcessDialog，
                 当onError时自动调用有@LoadFailed注解的方法
+
+                参数3为flag标记，用于识别
+                当该接口及其父接口中，只有一个@LoadFailed注解，则不需要传入flag
+                当该接口及其父接口中，有多个@LoadFailed注解时，需传入flag以区分不同的@LoadFailed，
+                否则多个有@loadFailed的方法都会被调用
                 */
     }
 

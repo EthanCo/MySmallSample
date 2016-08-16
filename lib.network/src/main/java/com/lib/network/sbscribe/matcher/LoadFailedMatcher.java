@@ -22,13 +22,18 @@ public class LoadFailedMatcher<T> extends StrategyMacther<T> {
     }
 
     @Override
-    protected Subscriber<T> generateSubscriber(final Object o, Class cls) {
+    protected Subscriber<T> generateSubscriber(final Object o, Class cls, int flag) {
         final List<Method> loadFailedList = new ArrayList<>();
         Method[] methods = cls.getMethods();
         for (Method method : methods) {
             LoadFailed loadFailedAnno = method.getAnnotation(LoadFailed.class);
             if (loadFailedAnno != null) {
-                loadFailedList.add(method);
+                int value = loadFailedAnno.value();
+                if (value == LoadFailed.DEFAULT_VALUE) {
+                    loadFailedList.add(method);
+                } else if (value == flag) {
+                    loadFailedList.add(method);
+                }
             }
         }
         if (loadFailedList.size() <= 0) return null;
