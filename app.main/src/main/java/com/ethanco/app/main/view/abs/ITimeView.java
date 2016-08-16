@@ -8,7 +8,7 @@ import com.lib.network.sbscribe.anno.LoadFailed;
  */
 public interface ITimeView extends ProcessDialogView {
 
-    int FLAG_GET_TIME_FAILED = 1001;
+    //int FLAG_GET_TIME_FAILED = 1001;
 
     void getServiceTimeSuccess(String time);
 
