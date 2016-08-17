@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ehtanco-zanno">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app.main/libs/ehtanco-zanno.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,3 +1,7 @@
+int attr civ_border_width 0x79010000
+int attr civ_border_color 0x79010001
+int attr civ_border_overlay 0x79010002
+int attr civ_fill_color 0x79010003
 int dimen actionbar_height 0x79020000
 int dimen activity_horizontal_margin 0x79020001
 int dimen activity_vertical_margin 0x79020002
@@ -31,3 +35,18 @@ int color white_smoke 0x7904000a
 int color window_background 0x7904000b
 int color window_background_dark 0x7904000c
 int color window_background_middle 0x7904000d
+int layout dialog_input 0x79050000
+int string cancle 0x79060000
+int string delete_confirm 0x79060001
+int string dialog_loading 0x79060002
+int string dialog_please_wait 0x79060003
+int string dialog_please_wait_title 0x79060004
+int string next 0x79060005
+int string reminder 0x79060006
+int string sure 0x79060007
+int id et_dialog_input 0x79070000
+int[] styleable CircleImageView { 0x79010000, 0x79010001, 0x79010002, 0x79010003 }
+int styleable CircleImageView_civ_border_color 1
+int styleable CircleImageView_civ_border_overlay 2
+int styleable CircleImageView_civ_border_width 0
+int styleable CircleImageView_civ_fill_color 3

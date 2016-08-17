@@ -4,7 +4,7 @@ package com.ethanco.app.main.viewmodel;
 import android.support.annotation.NonNull;
 
 import com.ethanco.app.main.view.abs.ITimeView;
-import com.lib.frame.anno.AutoDestory;
+import com.ethanco.zanno.AutoDestory;
 import com.lib.frame.viewmodel.BaseViewModel;
 import com.lib.network.NetFacade;
 import com.lib.network.bean.request.CmdRequest;
@@ -48,7 +48,6 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                     @Override
                     public void call(TimeResponse.Entity entity) {
                         getView().getServiceTimeSuccess(entity.getTime()); //获取成功，调用view层方法
-                        throw new RuntimeException("runTime");
                     }
                 }, getView()));
                 /*

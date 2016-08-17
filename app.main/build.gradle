@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
@@ -28,4 +31,5 @@ dependencies {
     compile project(':lib.frame')
     compile project(':lib.network')
     compile project(':lib.style')
+    compile files('libs/ehtanco-zanno.jar')
 }
