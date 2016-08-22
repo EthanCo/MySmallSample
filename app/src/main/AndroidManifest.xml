@@ -21,8 +21,7 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name="com.ethanco.service.MusicService"></service>
+        <service android:name="com.ethanco.mysmallsample.app.music.service.MusicService"></service>
     </application>
 
 </manifest>

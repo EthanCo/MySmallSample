@@ -3,31 +3,31 @@
   "bundles": [
     {
       "uri": "lib.utils",
-      "pkg": "com.lib.utils"
+      "pkg": "com.ethanco.mysmallsample.lib.utils"
     },
     {
       "uri": "lib.network",
-      "pkg": "com.lib.network"
+      "pkg": "com.ethanco.mysmallsample.lib.network"
     },
     {
       "uri": "lib.style",
-      "pkg": "com.lib.style"
+      "pkg": "com.ethanco.mysmallsample.lib.style"
     },
     {
       "uri": "lib.imageproxy",
-      "pkg": "com.lib.imageproxy"
+      "pkg": "com.ethanco.mysmallsample.lib.imageproxy"
     },
     {
       "uri": "lib.frame",
-      "pkg": "com.lib.frame"
+      "pkg": "com.ethanco.mysmallsample.lib.frame"
     },
     {
       "uri": "main",
-      "pkg": "com.ethanco.app.main"
+      "pkg": "com.ethanco.mysmallsample.app.main"
     },
     {
       "uri": "music",
-      "pkg": "com.ethanco.app.music"
+      "pkg": "com.ethanco.mysmallsample.app.music"
     }
   ]
 }
