@@ -19,6 +19,7 @@ import rx.schedulers.Schedulers;
 public class RxHelper {
     /**
      * 处理返回结果，如果错误则会执行onError
+     * 在网络加载失败时进行重新尝试连接
      * 并且进行线程的切换 subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
      *
      * @param <T>
@@ -38,7 +39,7 @@ public class RxHelper {
                             return Observable.error(new RuntimeException(result.getData().getMessage()));
                         }
                     }
-                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+                }).retryWhen(new RetryWhenNetworkException()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
         };
     }

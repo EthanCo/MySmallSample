@@ -51,7 +51,8 @@ public class TimeViewModel extends BaseViewModel<ITimeView> {
                         return getServiceTimeFromNet(cmd); //访问网络获取数据 并转换为Observable<TimeResponse>
                     }
                 })
-                .compose(RxHelper.<TimeResponse.Entity>handleResult()) //检查返回结果是否成功，并将subscribe设置为主线程执行，之前的代码在异步线程执行
+                ////检查返回结果是否成功，并将subscribe设置为主线程执行，之前的代码在异步线程执行，在网络加载失败时进行重新尝试连接
+                .compose(RxHelper.<TimeResponse.Entity>handleResult())
                 .doOnNext(new Action1<TimeResponse.Entity>() {
                     @Override
                     public void call(TimeResponse.Entity entity) {
